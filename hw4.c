@@ -81,6 +81,7 @@ int main(int argc, char* argv[])
     //create a counter to keep track of which field contains name
     int index_of_header = 1;
     char *token;
+    int name_found_in_header = 0; //bool value to indicate if name field found
     
     //get the first token
     token = strtok(line, ",");
@@ -92,12 +93,20 @@ int main(int argc, char* argv[])
             //if token = "name" or name
             //then break from for loop so the index_of_header
             //has a correct count
+            name_found_in_header = 1;
             break;
         }
         
         //if name is not found, continuing walking through tokens
         token = strtok(NULL, ",");
         index_of_header++;
+    }
+    
+    //check if name field found before continuing
+    if (name_found_in_header == 0)
+    {
+        printf("ERROR: Name field not found in header\n");
+        exit (1);
     }
 
 //storing each xth element into something
